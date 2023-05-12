@@ -1,7 +1,7 @@
 {
   "name": "vitepress-plugin-theme-override",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Makes it easy to further customize Vitepress's default theme without the need to import it all",
   "author": "Charles Gruenais",
   "license": "MIT",
