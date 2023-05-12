@@ -1,0 +1,60 @@
+{
+  "name": "vitepress-plugin-theme-override",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Makes it easy to further customize Vitepress's default theme without the need to import it all",
+  "author": "Charles Gruenais",
+  "license": "MIT",
+  "homepage": "https://github.com/Dschungelabenteuer/vitepress-plugin-theme-override/tree/main/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dschungelabenteuer/vitepress-plugin-theme-override.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dschungelabenteuer/vitepress-plugin-theme-override/issues"
+  },
+  "keywords": [
+    "Vitepress",
+    "theme",
+    "customize"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "lint": "eslint src",
+    "format": "prettier src --write",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only"
+  },
+  "peerDependencies": {
+    "vite": "^4.2.1",
+    "vitepress": "^1.0.0-alpha.62",
+    "vue": "^3.2.47"
+  },
+  "dependencies": {
+    "glob": "^9.3.2"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@types/node": "^18.15.9",
+    "@vue/compiler-sfc": "^3.2.47",
+    "@yungezeit/eslint-config-typescript": "^0.0.10",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "typescript": "^5.0.2",
+    "unbuild": "^1.1.2"
+  }
+}
