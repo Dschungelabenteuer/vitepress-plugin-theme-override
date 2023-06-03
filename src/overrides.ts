@@ -58,7 +58,7 @@ export async function registerOverridesFromPaths(
     .filter(Boolean) as Promise<OverrideData>[];
 
   for await (const override of overridePromises) {
-    overrides.set(override.relativePath, override);
+    if (override) overrides.set(override.relativePath, override);
   }
 }
 

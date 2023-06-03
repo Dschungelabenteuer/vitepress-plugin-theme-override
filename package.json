@@ -55,6 +55,7 @@
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
     "typescript": "^5.0.2",
-    "unbuild": "^1.1.2"
+    "unbuild": "^1.1.2",
+    "vitepress": "1.0.0-beta.1"
   }
 }
