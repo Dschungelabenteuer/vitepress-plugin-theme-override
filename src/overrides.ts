@@ -13,18 +13,21 @@ import {
   getTypeFromRelativePath,
   normalizePath,
   removeFileParams,
+  removeRelativePathChars,
   unnormalizePath,
 } from './utils';
 
 /** Looks for an existing override file matching the `id` path and returns it if it exists. */
 export function findOverride(overrides: OverrideMap, id: string) {
-  const path = id.split(themePath)[1] ?? '';
+  const baseThemePath = removeRelativePathChars(themePath);
+  const path = id.split(baseThemePath)[1] ?? '';
   const relativePath = removeFileParams(path);
+
   if (
     !path.includes('type=style') &&
     relativePath &&
     overrides.has(relativePath) &&
-    id.includes(themePath)
+    id.includes(baseThemePath)
   ) {
     return overrides.get(relativePath);
   }
@@ -70,7 +73,12 @@ export const getOverride =
     const relativePath = getRelativePath(overridePath, path);
     const defaultThemePath = await getDefaultThemePath();
     const originalPath = normalizePath(resolve(defaultThemePath, `./${relativePath}`));
-    if (!relativePath || !existsSync(originalPath)) return;
+    if (!relativePath) return;
+    if (!existsSync(originalPath)) {
+      const warn = (str: string) => console.warn(`\x1b[33m ${str} \x1b[0m`);
+      warn(`[vitepress-plugin-theme-override] File ${relativePath} does not exist in the default theme.`);
+      return;
+    }
 
     const originalCode = await readFile(originalPath, 'utf-8');
     const name = relativePath.replace(/[^a-zA-Z ]/g, '_');
