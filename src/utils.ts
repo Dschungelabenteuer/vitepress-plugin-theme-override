@@ -26,6 +26,10 @@ export const unnormalizePath = (path: string) => path.replaceAll('/', sep);
 /** Removes any query parameter from a file path. */
 export const removeFileParams = (path: string) => path.split('?')[0];
 
+/** Removes relative characters. */
+export const removeRelativePathChars = (path: string) => path.split('./').pop() ?? path;
+
+
 /** Determines override type from filename. */
 export const getTypeFromRelativePath = (fullName: string): OverrideType => {
   const [, extension] = fullName.split('.');
@@ -43,21 +47,19 @@ export const getTypeFromRelativePath = (fullName: string): OverrideType => {
 
 /** Returns Vitepress' base path by looking for its beforehand injected alias. */
 export const getVitepressPath = async () => {
-  const { resolvePackageData } = await import('vite');
   const missingVitepressMsg = `${logKey} Could not find path to Vitepress, is it installed?`;
 
-  const vitepressPath = resolvePackageData('vitepress', process.cwd())?.dir;
+  const vitepressPath = import.meta.resolve('vitepress')?.replace('file:///', '');
   if (!vitepressPath) throw new Error(missingVitepressMsg);
 
   const path = unnormalizePath(vitepressPath);
   if (!path) throw new Error(missingVitepressMsg);
-
   return parentPath(path);
 };
 
 export const getDefaultThemePath = async () => {
-  const vitepressPath = await await getVitepressPath();
-  return resolve(`${vitepressPath}/${themePath}`);
+  const vitepressPath = await getVitepressPath();
+  return resolve(vitepressPath, themePath);
 };
 
 export { normalizePath };

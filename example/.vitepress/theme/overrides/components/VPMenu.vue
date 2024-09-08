@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="VPMenu">
+  <div class="VPMenu customized">
     <div
       v-if="items"
       class="items"
