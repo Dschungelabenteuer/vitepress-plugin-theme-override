@@ -1,5 +1,11 @@
 # vitepress-plugin-theme-override
 
+## 0.1.0
+
+### Minor Changes
+
+- be191ee: Added Vite 5 and Vitepress 1.3 support
+
 ## 0.0.2
 
 ### Patch Changes
